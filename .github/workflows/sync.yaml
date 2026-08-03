@@ -12,7 +12,28 @@ jobs:
     if: ${{ github.event.repository.fork }}
 
     steps:
-      - name: Sync upstream changes
-        run: gh repo sync ${{ github.repository }} --source dreamhunter2333/cloudflare_temp_email --branch main
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add upstream https://github.com/dreamhunter2333/cloudflare_temp_email.git
+
+      - name: Fetch upstream and merge
+        run: |
+          git fetch upstream main
+          # 保留 fork 本地的 workflow 修复, 同时合并上游新代码
+          # 如果没有分叉则 fast-forward, 有本地提交则 3-way merge
+          if git merge-base --is-ancestor upstream/main HEAD; then
+            echo "fork 已包含 upstream main, 无需合并"
+          else
+            git merge --no-edit --allow-unrelated-histories upstream/main || {
+              echo "::error::Merge conflict with upstream, please resolve manually"
+              exit 1
+            }
+          fi
+          git push origin main
