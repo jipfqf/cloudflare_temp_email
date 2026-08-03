@@ -67,32 +67,16 @@ jobs:
           fi
 
           # ⚠️ 不再吞掉部署日志, 出错时可以看到 wrangler 真实报错
-          pnpm run deploy
+          pnpm run deploy 2>&1 | tee /tmp/deploy.log
           echo "Deployed for tag ${{ github.ref_name }}"
+          # 部署后校验: wrangler 输出必须包含 D1 绑定
+          if ! grep -q "env.DB" /tmp/deploy.log; then
+            echo "FAIL: D1 binding missing in deploy output!"
+            exit 1
+          fi
+          echo "OK: D1 binding present, deployment verified"
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           # 将 secret 映射到环境变量中
           WRANGLER_TOML_CONTENT: ${{ secrets.BACKEND_TOML }}
-
-      - name: Verify D1 binding after deploy
-        run: |
-          echo "Checking mail-worker latest version bindings..."
-          python3 -c "
-import urllib.request, json, os
-acct=os.environ['CLOUDFLARE_ACCOUNT_ID']; tok=os.environ['CLOUDFLARE_API_TOKEN']
-req=urllib.request.Request('https://api.cloudflare.com/client/v4/accounts/%s/workers/scripts/mail-worker/versions?per_page=1'%acct, headers={'Authorization':'Bearer '+tok})
-d=json.loads(urllib.request.urlopen(req, timeout=30).read())
-items=d.get('result',{}).get('items',[])
-if not items:
-    print('FAIL: no versions'); exit(1)
-bs=items[0].get('resources',{}).get('bindings',[])
-names=[b['name'] for b in bs]
-print('latest version bindings (%d): %s'%(len(names), names))
-if not any(b.get('type')=='d1' for b in bs):
-    print('FAIL: D1 binding missing'); exit(1)
-print('OK: D1 binding present')
-"
-        env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
