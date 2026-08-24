@@ -6,13 +6,39 @@
   <a href="CHANGELOG_EN.md">English</a>
 </p>
 
-## v1.11.0(main)
+## v1.12.0(main)
 
 ### Features
 
+- feat: |Admin| Add D1 storage capacity details to the database page, with persistent Free and Workers Paid plan selection and a comparison between the current database size and capacity limit
+
 ### Bug Fixes
 
+- fix: |Admin| Fix secondary tabs occasionally losing their active item, hiding content, and leaving the indicator offset after switching primary tabs
+- fix: |Send Mail| Use a consistent address/name field order and align the empty content editor caret with its placeholder
+
 ### Improvements
+
+- feat: |Send Mail| Improve the information hierarchy and responsive layout of the user and Admin composers, with a content-format toolbar, draft status, bottom send-action area, and isolated HTML preview
+
+### Testing
+
+- test: |E2E| Cover the D1 database-size response, config-key isolation, and persistence of the database-page plan selection across reloads
+- fix: |E2E| Cover draft editing, content-format switching, and HTML preview in the send-mail composer
+
+## v1.11.0
+
+### Features
+
+- feat: |Frontend| Add Normal, Random, and Custom subdomain mode selection within the random-subdomain scope (issue #1108)
+
+### Bug Fixes
+
+- fix: |Frontend| Relabel mailbox settings and deletion actions as email-address operations, and clarify that send permission and balance are managed independently for the current email address
+
+### Improvements
+
+- docs: |Send Mail| Document the differences between user accounts, email addresses, and send permission, including how to request permission for the currently selected address
 
 - fix: |Worker| Throttle address-activity touches to one write per day so user settings and mailbox access do not repeatedly update recently active addresses, reducing D1 writes (issue #1103)
 

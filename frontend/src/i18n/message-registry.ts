@@ -419,8 +419,8 @@ export const MESSAGE_REGISTRY = {
       "zh": "关于"
     },
     "accountSettings": {
-      "en": "Account Settings",
-      "zh": "账户"
+      "en": "Email Settings",
+      "zh": "邮箱设置"
     },
     "appearance": {
       "en": "Appearance",
@@ -891,8 +891,8 @@ export const MESSAGE_REGISTRY = {
   },
   "views.index.AccountSettings": {
     "changePassword": {
-      "en": "Change Password",
-      "zh": "修改密码"
+      "en": "Change Address Password",
+      "zh": "修改地址密码"
     },
     "clearInbox": {
       "en": "Clear Inbox",
@@ -915,20 +915,20 @@ export const MESSAGE_REGISTRY = {
       "zh": "确认密码"
     },
     "deleteAccount": {
-      "en": "Delete Account",
-      "zh": "删除账户"
+      "en": "Delete Email Address",
+      "zh": "删除邮箱地址"
     },
     "deleteAccountConfirm": {
-      "en": "Are you sure to delete your account and all emails for this account?",
-      "zh": "确定要删除你的账户和其中的所有邮件吗?"
+      "en": "Are you sure you want to delete this email address and all of its emails? This does not delete your user account.",
+      "zh": "确定要删除当前邮箱地址及其中的所有邮件吗？此操作不会删除你的用户账号。"
     },
     "logout": {
-      "en": "Logout",
-      "zh": "退出登录"
+      "en": "Log Out of Address",
+      "zh": "退出地址登录"
     },
     "logoutConfirm": {
-      "en": "Are you sure to logout?",
-      "zh": "确定要退出登录吗？"
+      "en": "Are you sure you want to log out of the current email address?",
+      "zh": "确定要退出当前邮箱地址的登录吗？"
     },
     "newPassword": {
       "en": "New Password",
@@ -1026,6 +1026,14 @@ export const MESSAGE_REGISTRY = {
     }
   },
   "views.index.SendMail": {
+    "balanceUnavailable": {
+      "en": "No send balance for this address",
+      "zh": "当前地址暂无发信额度"
+    },
+    "composeMail": {
+      "en": "Compose email",
+      "zh": "写邮件"
+    },
     "content": {
       "en": "Content",
       "zh": "内容"
@@ -1033,6 +1041,14 @@ export const MESSAGE_REGISTRY = {
     "contentEmpty": {
       "en": "Content is empty",
       "zh": "内容不能为空"
+    },
+    "contentPlaceholder": {
+      "en": "Write your message...",
+      "zh": "输入邮件正文..."
+    },
+    "draftSaved": {
+      "en": "Draft saved in this browser",
+      "zh": "草稿已保存在当前浏览器"
     },
     "edit": {
       "en": "Edit",
@@ -1055,12 +1071,24 @@ export const MESSAGE_REGISTRY = {
       "zh": "预览"
     },
     "requestAccess": {
-      "en": "Request Access",
-      "zh": "申请权限"
+      "en": "Request send access",
+      "zh": "申请发信权限"
     },
     "requestAccessTip": {
-      "en": "No send balance yet. If your admin enabled a default balance it should be assigned automatically; otherwise request access or contact the admin.",
-      "zh": "当前还没有可用的发信额度。如果管理员启用了默认额度，会自动发放；否则请申请权限或联系管理员处理。"
+      "en": "Send permission and balance are managed separately for each email address. The current address, {address}, has no available balance. Request permission for this address or contact the admin.",
+      "zh": "发信权限和额度按邮箱地址独立管理。当前地址 {address} 暂无可用额度，请为此地址申请发信权限或联系管理员。"
+    },
+    "requestSuccess": {
+      "en": "Send permission requested for the current address",
+      "zh": "已为当前地址提交发信权限申请"
+    },
+    "recipientAddress": {
+      "en": "Recipient address",
+      "zh": "收件人邮箱"
+    },
+    "recipientName": {
+      "en": "Recipient name (optional)",
+      "zh": "收件人名称（可选）"
     },
     "rich text": {
       "en": "Rich Text",
@@ -1071,8 +1099,16 @@ export const MESSAGE_REGISTRY = {
       "zh": "发送"
     },
     "send_balance": {
-      "en": "Send Mail Balance Left",
-      "zh": "剩余发送邮件额度"
+      "en": "Current Address Send Balance",
+      "zh": "当前地址剩余发信额度"
+    },
+    "senderAddress": {
+      "en": "Sender address",
+      "zh": "发件邮箱"
+    },
+    "senderName": {
+      "en": "Sender name (optional)",
+      "zh": "发件人名称（可选）"
     },
     "subject": {
       "en": "Subject",
@@ -1088,7 +1124,7 @@ export const MESSAGE_REGISTRY = {
     },
     "text": {
       "en": "Text",
-      "zh": "文本"
+      "zh": "纯文本"
     },
     "toMailEmpty": {
       "en": "Recipient address is empty",
@@ -1105,8 +1141,8 @@ export const MESSAGE_REGISTRY = {
   },
   "views.index.SimpleIndex": {
     "accountSettings": {
-      "en": "Account Settings",
-      "zh": "账户设置"
+      "en": "Email Settings",
+      "zh": "邮箱设置"
     },
     "addressCopied": {
       "en": "Address copied successfully",
@@ -1274,6 +1310,14 @@ export const MESSAGE_REGISTRY = {
     }
   },
   "views.admin.SendMail": {
+    "adminComposeTip": {
+      "en": "Send from a configured email address",
+      "zh": "使用已配置的邮箱地址发信"
+    },
+    "composeMail": {
+      "en": "Compose email",
+      "zh": "写邮件"
+    },
     "content": {
       "en": "Content",
       "zh": "内容"
@@ -1281,6 +1325,14 @@ export const MESSAGE_REGISTRY = {
     "contentEmpty": {
       "en": "Content is empty",
       "zh": "内容不能为空"
+    },
+    "contentPlaceholder": {
+      "en": "Write your message...",
+      "zh": "输入邮件正文..."
+    },
+    "draftSaved": {
+      "en": "Draft saved in this browser",
+      "zh": "草稿已保存在当前浏览器"
     },
     "edit": {
       "en": "Edit",
@@ -1306,6 +1358,14 @@ export const MESSAGE_REGISTRY = {
       "en": "Preview",
       "zh": "预览"
     },
+    "recipientAddress": {
+      "en": "Recipient address",
+      "zh": "收件人邮箱"
+    },
+    "recipientName": {
+      "en": "Recipient name (optional)",
+      "zh": "收件人名称（可选）"
+    },
     "rich text": {
       "en": "Rich Text",
       "zh": "富文本"
@@ -1313,6 +1373,14 @@ export const MESSAGE_REGISTRY = {
     "send": {
       "en": "Send",
       "zh": "发送"
+    },
+    "senderAddress": {
+      "en": "Sender address",
+      "zh": "发件邮箱"
+    },
+    "senderName": {
+      "en": "Sender name (optional)",
+      "zh": "发件人名称（可选）"
     },
     "subject": {
       "en": "Subject",
@@ -1328,7 +1396,7 @@ export const MESSAGE_REGISTRY = {
     },
     "text": {
       "en": "Text",
-      "zh": "文本"
+      "zh": "纯文本"
     },
     "toMailEmpty": {
       "en": "Recipient address is empty",
@@ -1690,6 +1758,14 @@ export const MESSAGE_REGISTRY = {
       "en": "Current DB Version",
       "zh": "当前数据库版本"
     },
+    "current_database_size": {
+      "en": "Current Database Size",
+      "zh": "当前数据库大小"
+    },
+    "free_plan": {
+      "en": "Free",
+      "zh": "Free"
+    },
     "init": {
       "en": "Initialize Database",
       "zh": "初始化数据库"
@@ -1713,6 +1789,46 @@ export const MESSAGE_REGISTRY = {
     "need_migration_tip": {
       "en": "Database migration is required. Please migrate the database.",
       "zh": "需要迁移数据库，请迁移数据库"
+    },
+    "paid_plan": {
+      "en": "Workers Paid",
+      "zh": "Workers Paid"
+    },
+    "plan": {
+      "en": "Workers Plan",
+      "zh": "Workers 套餐"
+    },
+    "plan_placeholder": {
+      "en": "Select your Cloudflare Workers plan",
+      "zh": "请选择 Cloudflare Workers 套餐"
+    },
+    "planSaved": {
+      "en": "Workers plan saved",
+      "zh": "Workers 套餐已保存"
+    },
+    "single_database_limit": {
+      "en": "Database Capacity Limit",
+      "zh": "数据库容量上限"
+    },
+    "storage_description": {
+      "en": "Compare the current database size with your plan limits.",
+      "zh": "将当前数据库大小与套餐容量上限进行对比"
+    },
+    "storage_tip": {
+      "en": "Usage is calculated from the current database size and the selected plan limit.",
+      "zh": "使用率按当前数据库大小与所选套餐的数据库容量上限计算。"
+    },
+    "storage_title": {
+      "en": "D1 Storage Capacity",
+      "zh": "D1 存储容量"
+    },
+    "storage_usage": {
+      "en": "Capacity Usage",
+      "zh": "容量使用率"
+    },
+    "unavailable": {
+      "en": "Unavailable",
+      "zh": "暂不可用"
     }
   },
   "views.admin.IpBlacklistSettings": {
@@ -2000,6 +2116,10 @@ export const MESSAGE_REGISTRY = {
       "en": "Create New Email",
       "zh": "创建新邮箱"
     },
+    "enableCustomSubdomain": {
+      "en": "Use Custom Subdomain",
+      "zh": "使用自定义子域名"
+    },
     "enablePrefix": {
       "en": "If enable Prefix",
       "zh": "是否启用前缀"
@@ -2015,6 +2135,10 @@ export const MESSAGE_REGISTRY = {
     "linkWithAddressCredential": {
       "en": "Open to auto login email link",
       "zh": "打开即可自动登录邮箱的链接"
+    },
+    "normalSubdomain": {
+      "en": "Normal Domain",
+      "zh": "普通域名"
     },
     "randomSubdomainTip": {
       "en": "When enabled, the created address will use a random subdomain. Recommended for receiving only. Requires a wildcard MX DNS record on the base domain — see the random subdomain docs.",
@@ -2225,8 +2349,8 @@ export const MESSAGE_REGISTRY = {
       "zh": "强制开启"
     },
     "create_address_subdomain_match_note": {
-      "en": "This is different from RANDOM_SUBDOMAIN_DOMAINS: this switch allows API callers to specify custom subdomains directly, while random subdomain only auto-generates one during creation.",
-      "zh": "这与 RANDOM_SUBDOMAIN_DOMAINS 不同：这里允许 API 调用方直接指定自定义子域名；随机子域名功能只是在创建时自动补一个随机子域名。"
+      "en": "RANDOM_SUBDOMAIN_DOMAINS already allows random or manual subdomains for listed base domains. This switch additionally allows API callers to specify subdomains under other allowed base domains.",
+      "zh": "RANDOM_SUBDOMAIN_DOMAINS 已允许在所列基础域名下随机生成或手动输入子域名；此开关额外允许 API 在其他已授权基础域名下指定子域名。"
     },
     "create_address_subdomain_match_tip": {
       "en": "Only affects /api/new_address and /admin/new_address domain validation. Example: when enabled, foo.example.com can match configured base domain example.com.",
@@ -2506,6 +2630,10 @@ export const MESSAGE_REGISTRY = {
       "en": "Use Random Subdomain",
       "zh": "启用随机子域名"
     },
+    "enableCustomSubdomain": {
+      "en": "Use Custom Subdomain",
+      "zh": "使用自定义子域名"
+    },
     "generateName": {
       "en": "Generate Fake Name",
       "zh": "生成随机名字"
@@ -2513,6 +2641,10 @@ export const MESSAGE_REGISTRY = {
     "getNewEmail": {
       "en": "Create New Email",
       "zh": "创建新邮箱"
+    },
+    "normalSubdomain": {
+      "en": "Normal Domain",
+      "zh": "普通域名"
     },
     "getNewEmailTip1": {
       "en": "Please input the email you want to use. only allow: ",
