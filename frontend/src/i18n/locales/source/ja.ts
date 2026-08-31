@@ -402,6 +402,7 @@ export const jaMessages = {
   "views.user.UserSettings.renamePasskeyNamePlaceholder": "新しい Passkey 名を入力してください",
   "views.user.UserSettings.passkeyNamePlaceholder": "Passkey 名を入力するか、空欄でランダム生成してください",
   "views.admin.CreateAccount.fillInAllFields": "すべての項目を入力してください",
+  "views.admin.CreateAccount.generateName": "ランダム名を生成",
   "views.admin.SendBox.queryTip": "検索するアドレスを入力してください。空欄で全件検索します",
   "views.user.UserLogin.pleaseInputCode": "コードを入力してください",
   "views.admin.UserManagement.pleaseInput": "必要な情報をすべて入力してください",
@@ -650,5 +651,8 @@ export const jaMessages = {
   "components.AddressCredentialModal.starttls": "STARTTLS",
   "components.AddressCredentialModal.tip": "これらの認証情報は信頼できるクライアントと Agent でのみ使用してください。",
   "components.AddressCredentialModal.title": "アドレス認証情報と接続方法",
-  "components.AddressCredentialModal.username": "ユーザー名"
+  "components.AddressCredentialModal.username": "ユーザー名",
+  "views.User.send_mail": "メール送信",
+  "views.user.UserSendBox.noAddress": "紐付け済みのメールアドレスを選択してください",
+  "views.user.UserSendBox.sendbox": "送信済み"
 }

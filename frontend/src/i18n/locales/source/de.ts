@@ -402,6 +402,7 @@ export const deMessages = {
   "views.user.UserSettings.renamePasskeyNamePlaceholder": "Bitte den neuen Passkey-Namen eingeben",
   "views.user.UserSettings.passkeyNamePlaceholder": "Bitte den Passkey-Namen eingeben oder leer lassen, um einen zufälligen zu erzeugen",
   "views.admin.CreateAccount.fillInAllFields": "Bitte alle Felder ausfüllen",
+  "views.admin.CreateAccount.generateName": "Zufälligen Namen erzeugen",
   "views.admin.SendBox.queryTip": "Bitte die abzufragende Adresse eingeben; leer lassen für alle",
   "views.user.UserLogin.pleaseInputCode": "Bitte den Code eingeben",
   "views.admin.UserManagement.pleaseInput": "Bitte alle erforderlichen Informationen eingeben",
@@ -650,5 +651,8 @@ export const deMessages = {
   "components.AddressCredentialModal.starttls": "STARTTLS",
   "components.AddressCredentialModal.tip": "Verwende diese Zugangsdaten nur mit Clients und Agents, denen du vertraust.",
   "components.AddressCredentialModal.title": "Adresszugangsdaten & Verbindungsmethoden",
-  "components.AddressCredentialModal.username": "Benutzername"
+  "components.AddressCredentialModal.username": "Benutzername",
+  "views.User.send_mail": "E-Mail senden",
+  "views.user.UserSendBox.noAddress": "Wähle eine verknüpfte E-Mail-Adresse aus",
+  "views.user.UserSendBox.sendbox": "Gesendet"
 }

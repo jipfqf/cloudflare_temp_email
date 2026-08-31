@@ -402,6 +402,7 @@ export const ptBRMessages = {
   "views.user.UserSettings.renamePasskeyNamePlaceholder": "Informe o novo nome da passkey",
   "views.user.UserSettings.passkeyNamePlaceholder": "Informe o nome da passkey ou deixe em branco para gerar um aleatório",
   "views.admin.CreateAccount.fillInAllFields": "Preencha todos os campos",
+  "views.admin.CreateAccount.generateName": "Gerar nome aleatório",
   "views.admin.SendBox.queryTip": "Informe o endereço para consulta; deixe em branco para consultar todos",
   "views.user.UserLogin.pleaseInputCode": "Informe o código",
   "views.admin.UserManagement.pleaseInput": "Informe todas as informações",
@@ -650,5 +651,8 @@ export const ptBRMessages = {
   "components.AddressCredentialModal.starttls": "STARTTLS",
   "components.AddressCredentialModal.tip": "Use estas credenciais somente com clientes e agents confiáveis.",
   "components.AddressCredentialModal.title": "Credenciais do endereço e métodos de conexão",
-  "components.AddressCredentialModal.username": "Nome de usuário"
+  "components.AddressCredentialModal.username": "Nome de usuário",
+  "views.User.send_mail": "Enviar e-mail",
+  "views.user.UserSendBox.noAddress": "Selecione um endereço de e-mail vinculado",
+  "views.user.UserSendBox.sendbox": "Enviados"
 }
