@@ -3,17 +3,17 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "test:unit": "node --experimental-strip-types --test tests/unit/*.test.mjs",
     "test": "docker compose up --build --abort-on-container-exit --exit-code-from e2e-runner",
     "test:down": "docker compose down -v"
   },
   "devDependencies": {
-    "@playwright/test": "1.62.1",
-    "@types/nodemailer": "^8.0.1",
+    "@playwright/test": "1.63.0",
     "@types/ws": "^8.18.1",
     "ws": "^8.21.3"
   },
   "dependencies": {
-    "imapflow": "^1.7.1",
-    "nodemailer": "^9.0.5"
+    "imapflow": "^1.7.8",
+    "nodemailer": "^10.0.0"
   }
 }

@@ -10,18 +10,26 @@
 
 ### Features
 
+- feat: |Worker| Add `DISABLE_ADDRESS_UPDATED_AT` to disable individual and user-wide address activity keep-alive updates and built-in manual/scheduled inactive-address cleanup, reducing D1 writes
+- feat: |Frontend| Add the `VITE_DEFAULT_LANG` build variable and support overriding frontend settings through runtime configuration in `index.html`
+- feat: |Redemption Codes| Add role, sending-credit and custom-mailbox redemption with Admin management, concurrency protection and form validation
+- feat: |Mail| Add optional read/unread status with click-to-read and manual status switching
 - feat: |Admin| Add D1 storage capacity details to the database page, with persistent Free and Workers Paid plan selection and a comparison between the current database size and capacity limit
 - feat: |Admin| Add one-click random email-name generation to the address creation page (issue #1126)
+- feat: |Admin API| Add `ADMIN_API_IP_WHITELIST` to restrict all admin endpoints by source IP
 - feat: |User| Add mail composition, inbox-style sent-item filtering by bound address, and the shared address-credentials dialog to the user center, backed by User JWT APIs for address settings, send-access requests, sending, and sent-item management
 
 ### Bug Fixes
 
+- fix: |Frontend| Remove unsupported `data-onload` and `data-onerror` attributes from the AdSense script
+- fix: |Admin| Avoid briefly showing the Admin password dialog before access settings finish loading
 - fix: |Admin| Fix secondary tabs occasionally losing their active item, hiding content, and leaving the indicator offset after switching primary tabs
 - fix: |Send Mail| Use a consistent address/name field order and align the empty content editor caret with its placeholder
 - fix: |User Send Mail| Apply role-based unlimited sending to user-address APIs
 
 ### Improvements
 
+- fix: |Frontend| Unify core mailbox, email-address, user-account, and Admin Console terminology, and fill missing additional-locale strings for mail status and remote images (issue #1129)
 - feat: |Send Mail| Improve the information hierarchy and responsive layout of the user and Admin composers, with a content-format toolbar, draft status, bottom send-action area, and isolated HTML preview
 
 ### Testing
