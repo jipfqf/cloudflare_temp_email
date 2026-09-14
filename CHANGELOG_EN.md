@@ -6,10 +6,20 @@
   <a href="CHANGELOG_EN.md">English</a>
 </p>
 
-## v1.12.0(main)
+## v1.13.0(main)
 
 ### Features
 
+### Bug Fixes
+
+### Improvements
+
+## v1.12.0
+
+### Features
+
+- feat: |Webhook| Support random or specified email IDs in the test dialog, with request-body validation, mailbox ownership checks, existing UI languages and Chinese/English errors
+- feat: |Webhook| Support signed attachment URLs without S3, plain URL and Markdown link lists, with case-insensitive signatures bound to the inserted email and original download filenames; deny attachment downloads when Webhook is disabled (issue #1142)
 - feat: |Worker| Add `DISABLE_ADDRESS_UPDATED_AT` to disable individual and user-wide address activity keep-alive updates and built-in manual/scheduled inactive-address cleanup, reducing D1 writes
 - feat: |Frontend| Add the `VITE_DEFAULT_LANG` build variable and support overriding frontend settings through runtime configuration in `index.html`
 - feat: |Redemption Codes| Add role, sending-credit and custom-mailbox redemption with Admin management, concurrency protection and form validation
@@ -21,6 +31,7 @@
 
 ### Bug Fixes
 
+- fix: |Mailbox Auth| Fix stale mailbox credentials retaining API access, unauthorized Telegram unbinding, ineffective rebinding and credential storage in external sent mail; distinguish authentication errors to prompt for site and Admin login correctly; move E2E test endpoints out of production code
 - fix: |Frontend| Remove unsupported `data-onload` and `data-onerror` attributes from the AdSense script
 - fix: |Admin| Avoid briefly showing the Admin password dialog before access settings finish loading
 - fix: |Admin| Fix secondary tabs occasionally losing their active item, hiding content, and leaving the indicator offset after switching primary tabs
@@ -242,7 +253,7 @@
 
 - test: |E2E| Add Dockerized E2E test environment (Playwright + Mailpit), run with `cd e2e && npm test`
 - test: |E2E| Cover API health check, address lifecycle, SMTP send, inbox UI, HTML reply & XSS sanitization
-- test: |Worker| Add `/admin/test/seed_mail` test endpoint, only available when `E2E_TEST_MODE` is enabled
+- test: |Worker| Add `/admin/test/seed_mail` test endpoint
 
 ### Improvements
 
