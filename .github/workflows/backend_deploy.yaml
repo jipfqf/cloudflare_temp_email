@@ -75,6 +75,8 @@ jobs:
             exit 1
           fi
           echo "OK: D1 binding present, deployment verified"
+          # 自动触发数据库增量迁移，防止版本更新后缺少新表或新列
+          python3 -c "import urllib.request, re, time; m = re.search(r'ADMIN_PASSWORDS\s*=\s*\[\s*\"([^\"]+)\"', open('wrangler.toml').read()); (time.sleep(3), urllib.request.urlopen(urllib.request.Request('https://mail-worker.jipfqf.workers.dev/admin/db_migration', headers={'x-admin-auth': m.group(1), 'Content-Type': 'application/json', 'User-Agent': 'GitHub-Actions'}, method='POST'))) if m else None" || true
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

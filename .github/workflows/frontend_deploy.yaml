@@ -33,6 +33,8 @@ jobs:
           cd frontend/
           echo "${{ secrets.FRONTEND_ENV }}" > .env.prod
           pnpm install --no-frozen-lockfile
+          # 拷贝 functions 目录确保 Pages 包含 _middleware.js 代理中间件
+          cp -r ../pages/functions ./functions
           export frontend_branch="${{ secrets.FRONTEND_BRANCH }}"
           if [ -n "$frontend_branch" ]; then
             echo "Deploying branch $frontend_branch"
