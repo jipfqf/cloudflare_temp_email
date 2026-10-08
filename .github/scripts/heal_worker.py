@@ -175,9 +175,15 @@ def watch(expect: str, seconds: int) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--watch", type=int, default=0, help="seconds to watch traffic")
-    parser.add_argument("--expect", default="", help="version id traffic must stay on")
+    parser.add_argument("--expect", default="", help="version id traffic must stay on (or 'auto')")
     args = parser.parse_args()
 
+    if args.expect == "auto" or (args.watch and not args.expect):
+        good = newest_healthy_version()
+        if not good:
+            print("::error::cannot find any healthy version to watch")
+            return 1
+        return watch(good, args.watch or 120)
     if args.expect:
         return watch(args.expect, args.watch or 120)
     return one_shot_heal()

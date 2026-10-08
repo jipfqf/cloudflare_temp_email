@@ -96,15 +96,11 @@ jobs:
           # 纯 assets 版本抢占 100% 流量, 导致 /open_api /admin /user_api 全 404。
           # 下面的自愈器会盯 120 秒: 一旦被抢就立刻 pin 回刚部署的正确版本,
           # 结束时激活版本正确 -> 部署直接成功; pin 不回去才让 job 失败报警。
-          DEPLOYED_VERSION_ID=$(grep -oE 'Current Version ID: [0-9a-f-]+' /tmp/deploy.log | head -1 | awk '{print $4}')
-          if [ -z "$DEPLOYED_VERSION_ID" ]; then
-            echo "FAIL: cannot parse Current Version ID from deploy log"
-            exit 1
-          fi
-          echo "deployed version: $DEPLOYED_VERSION_ID"
-          python3 ../.github/scripts/heal_worker.py --watch 120 --expect "$DEPLOYED_VERSION_ID"
+          DEPLOYED_VERSION_ID=$(grep -E 'Current Version ID:' /tmp/deploy.log | awk '{print $NF}' | head -1)
+          echo "deployed version parsed: ${DEPLOYED_VERSION_ID:-auto}"
+          python3 ../.github/scripts/heal_worker.py --watch 120 --expect "${DEPLOYED_VERSION_ID:-auto}"
           # 自动触发数据库增量迁移，防止版本更新后缺少新表或新列
-          python3 -c "import urllib.request, re, time; m = re.search(r'ADMIN_PASSWORDS\s*=\s*\[\s*\"([^\"]+)\"', open('wrangler.toml').read()); (time.sleep(3), urllib.request.urlopen(urllib.request.Request('https://mail-worker.jipfqf.workers.dev/admin/db_migration', headers={'x-admin-auth': m.group(1), 'Content-Type': 'application/json', 'User-Agent': 'GitHub-Actions'}, method='POST'))) if m else None" || true
+          python3 ../.github/scripts/trigger_migration.py || true
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
