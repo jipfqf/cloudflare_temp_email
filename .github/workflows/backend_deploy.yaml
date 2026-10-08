@@ -75,6 +75,9 @@ jobs:
             exit 1
           fi
           echo "OK: D1 binding present, deployment verified"
+          # ⚠️ 核心防线: wrangler 带 assets 模式一次 deploy 会额外生成"0绑定"纯资源版本, 可能抢走100%流量(2026-10-08 404事故根因)
+          # 校验 Cloudflare 当前真实激活版本必须携带 D1 绑定, 否则 job 失败报警
+          python3 ../.github/scripts/verify_active_version.py
           # 自动触发数据库增量迁移，防止版本更新后缺少新表或新列
           python3 -c "import urllib.request, re, time; m = re.search(r'ADMIN_PASSWORDS\s*=\s*\[\s*\"([^\"]+)\"', open('wrangler.toml').read()); (time.sleep(3), urllib.request.urlopen(urllib.request.Request('https://mail-worker.jipfqf.workers.dev/admin/db_migration', headers={'x-admin-auth': m.group(1), 'Content-Type': 'application/json', 'User-Agent': 'GitHub-Actions'}, method='POST'))) if m else None" || true
         env:
