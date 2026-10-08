@@ -1,0 +1,29 @@
+name: Mail Worker Self-Heal
+
+# 每 5 分钟巡检 mail-worker 的"激活版本"健康状态。
+# 事故背景: 2026-10-08, 一个"0 绑定 + 无脚本"的纯 assets 版本抢占 100% 流量,
+# 导致 mail.920517.xyz 所有 API (/open_api /admin /user_api) 全部 404, 需要人工回滚。
+# 本工作流自动完成: 发现不健康 -> 立刻 pin 回最新健康版本 -> 打开告警注释。
+# 无论流氓版本来自 CI、本地手工 wrangler deploy 还是其他来源, 5 分钟内自愈。
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  heal:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check & heal active version
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: python3 .github/scripts/heal_worker.py

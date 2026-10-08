@@ -75,9 +75,17 @@ jobs:
             exit 1
           fi
           echo "OK: D1 binding present, deployment verified"
-          # ⚠️ 核心防线: wrangler 带 assets 模式一次 deploy 会额外生成"0绑定"纯资源版本, 可能抢走100%流量(2026-10-08 404事故根因)
-          # 校验 Cloudflare 当前真实激活版本必须携带 D1 绑定, 否则 job 失败报警
-          python3 ../.github/scripts/verify_active_version.py
+          # ⚠️ 核心防线 (2026-10-08 404 事故): wrangler 部署后 3~5 秒可能冒出"0绑定无脚本"的
+          # 纯 assets 版本抢占 100% 流量, 导致 /open_api /admin /user_api 全 404。
+          # 下面的自愈器会盯 120 秒: 一旦被抢就立刻 pin 回刚部署的正确版本,
+          # 结束时激活版本正确 -> 部署直接成功; pin 不回去才让 job 失败报警。
+          DEPLOYED_VERSION_ID=$(grep -oE 'Current Version ID: [0-9a-f-]+' /tmp/deploy.log | head -1 | awk '{print $4}')
+          if [ -z "$DEPLOYED_VERSION_ID" ]; then
+            echo "FAIL: cannot parse Current Version ID from deploy log"
+            exit 1
+          fi
+          echo "deployed version: $DEPLOYED_VERSION_ID"
+          python3 ../.github/scripts/heal_worker.py --watch 120 --expect "$DEPLOYED_VERSION_ID"
           # 自动触发数据库增量迁移，防止版本更新后缺少新表或新列
           python3 -c "import urllib.request, re, time; m = re.search(r'ADMIN_PASSWORDS\s*=\s*\[\s*\"([^\"]+)\"', open('wrangler.toml').read()); (time.sleep(3), urllib.request.urlopen(urllib.request.Request('https://mail-worker.jipfqf.workers.dev/admin/db_migration', headers={'x-admin-auth': m.group(1), 'Content-Type': 'application/json', 'User-Agent': 'GitHub-Actions'}, method='POST'))) if m else None" || true
         env:
