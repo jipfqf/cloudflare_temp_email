@@ -57,6 +57,23 @@ jobs:
           echo "=== generated wrangler.toml ==="
           cat wrangler.toml
 
+          # ⚠️ 部署前硬校验: 缺任何关键项就直接终止, 绝不能产出"0绑定版本"。
+          # 事故复盘: 2026-09-21 / 09-24 / 10-05 / 10-08 多次出现 assets-only + 0绑定 + 无脚本的
+          # 版本抢占 100% 流量 (兼容日期被 wrangler 自动填成"当天", serve_directly=true),
+          # 结果是 /open_api /admin /user_api 全部 404, 只能人工回滚流量。
+          for must in 'main =' 'binding = "DB"' 'database_id' 'DOMAINS'; do
+            if ! grep -q "$must" wrangler.toml; then
+              echo "FAIL: wrangler.toml missing [$must] - refusing to deploy a bindingless version"
+              exit 1
+            fi
+          done
+          # 静态资源一律走 Pages, Worker 不托管 assets, 避免 assets-only 版本混入
+          if grep -q '^\[assets\]' wrangler.toml; then
+            echo "FAIL: [assets] must not be in BACKEND_TOML (frontend is served by Pages)"
+            exit 1
+          fi
+          echo "OK: wrangler.toml pre-flight check passed"
+
           pnpm install --no-frozen-lockfile
 
           if [ -n "$use_mail_wasm_parser" ]; then
